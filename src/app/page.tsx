@@ -20,11 +20,31 @@ export default function Home() {
   const [isExcursionModalOpen, setIsExcursionModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [hidePreloader, setHidePreloader] = useState(false);
+  const [locationText, setLocationText] = useState('Республике Чувашия');
   
   // Form states
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
+
+  const normalizeRegion = (regionRaw: string, cityRaw: string) => {
+    const region = regionRaw.trim();
+    const city = cityRaw.trim();
+    const regionAndCity = `${region} ${city}`;
+
+    if (/moscow|москв/i.test(regionAndCity)) {
+      return 'Москве и Московской области';
+    }
+
+    if (/chuvash|чуваш/i.test(regionAndCity)) {
+      return 'Республике Чувашия';
+    }
+
+    if (region) return region;
+    if (city) return city;
+
+    return null;
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,6 +52,33 @@ export default function Home() {
       setTimeout(() => setHidePreloader(true), 600); // для плавного исчезновения
     }, 1200);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const detectRegion = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/?lang=ru', {
+          signal: controller.signal,
+          cache: 'no-store',
+        });
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        const detected = normalizeRegion(data?.region ?? '', data?.city ?? '');
+
+        if (detected) {
+          setLocationText(detected);
+        }
+      } catch {
+        // Keep fallback location text if IP geolocation is unavailable.
+      }
+    };
+
+    detectRegion();
+    return () => controller.abort();
   }, []);
 
   const validatePhone = (value: string) => {
@@ -103,7 +150,7 @@ export default function Home() {
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-white text-sm font-medium leading-none">В республике Чувашия</span>
+                  <span className="text-white text-sm font-medium leading-none">В {locationText}</span>
                 </div>
               </div>
               
