@@ -40,3 +40,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 "# yourhouse" 
 "# yourhouse" 
 # yourhouse21
+
+npm run build
+pm2 restart next-yourhouse
