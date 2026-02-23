@@ -104,13 +104,13 @@ const MobileMenu = ({ isOpen, onClose, onCallbackClick }: MobileMenuProps) => {
           <div className="text-sm text-gray-300 mb-4">Пн - Вс с 8:00 до 20:00</div>
           <div className="mb-6">
             <a 
-              href="mailto:Vashdom121@mail.ru" 
+              href="mailto:vashdom121@mail.ru" 
               className="flex items-center text-white hover:text-blue-400 transition-colors group"
             >
               <svg className="w-5 h-5 mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <span className="text-sm">Vashdom121@mail.ru</span>
+              <span className="text-sm">vashdom121@mail.ru</span>
             </a>
           </div>
           <button 

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "YourHouse",
+  title: "ВашДом21",
   description: "Строительство каменных и каркасных домов с фиксацией цены",
 };
 
