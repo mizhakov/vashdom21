@@ -14,37 +14,32 @@ import ExcursionModal from '@/components/ExcursionModal';
 import FadeInSection from '@/components/FadeInSection';
 import Preloader from '@/components/Preloader';
 
+const DEFAULT_LOCATION_TEXT = 'Республике Чувашия и Московской области';
+const MOSCOW_LOCATION_TEXT = 'Москве и Московской области';
+const MOSCOW_REGION_REGEX = /moscow|москв/i;
+
+const normalizeRegion = (regionRaw: string, cityRaw: string) => {
+  const regionAndCity = `${regionRaw.trim()} ${cityRaw.trim()}`;
+
+  if (MOSCOW_REGION_REGEX.test(regionAndCity)) {
+    return MOSCOW_LOCATION_TEXT;
+  }
+
+  return DEFAULT_LOCATION_TEXT;
+};
+
 export default function Home() {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [isCatalogModalOpen, setIsCatalogModalOpen] = useState(false);
   const [isExcursionModalOpen, setIsExcursionModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [hidePreloader, setHidePreloader] = useState(false);
-  const [locationText, setLocationText] = useState('Республике Чувашия');
+  const [locationText, setLocationText] = useState(DEFAULT_LOCATION_TEXT);
   
   // Form states
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
-
-  const normalizeRegion = (regionRaw: string, cityRaw: string) => {
-    const region = regionRaw.trim();
-    const city = cityRaw.trim();
-    const regionAndCity = `${region} ${city}`;
-
-    if (/moscow|москв/i.test(regionAndCity)) {
-      return 'Москве и Московской области';
-    }
-
-    if (/chuvash|чуваш/i.test(regionAndCity)) {
-      return 'Республике Чувашия';
-    }
-
-    if (region) return region;
-    if (city) return city;
-
-    return null;
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
