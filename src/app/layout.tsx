@@ -38,16 +38,16 @@ export default function RootLayout({
                 m[i].l=1*new Date();
                 for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
                 k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103926054', 'ym');
+            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108980805', 'ym');
             
-            ym(103926054, 'init', { ssr: true, webvisor: true, clickmap: true, accurateTrackBounce: true, trackLinks: true });
+            ym(108980805, 'init', { ssr: true, webvisor: true, clickmap: true, accurateTrackBounce: true, trackLinks: true });
           `,
           }}
         />
         <noscript>
           <div>
             <img
-              src="https://mc.yandex.ru/watch/103926054"
+              src="https://mc.yandex.ru/watch/108980805"
               style={{ position: "absolute", left: "-9999px" }}
               alt=""
             />
