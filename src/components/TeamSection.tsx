@@ -237,8 +237,17 @@ const WorkExamplesSection = () => {
             <FadeInSection 
               key={example.id} 
               as="div" 
-              className="group relative rounded-2xl bg-white/80 backdrop-blur-md border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 overflow-hidden"
+              className="group relative rounded-2xl bg-white/80 backdrop-blur-md border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               delay={0.3 + (index * 0.1)}
+              role="button"
+              tabIndex={0}
+              onClick={() => setIsCallbackModalOpen(true)}
+              onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  setIsCallbackModalOpen(true);
+                }
+              }}
             >
               {/* Фон */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -307,8 +316,17 @@ const WorkExamplesSection = () => {
               <FadeInSection 
                 key={service.id} 
                 as="div" 
-                className="group relative rounded-2xl bg-white/80 backdrop-blur-md border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 overflow-hidden"
+                className="group relative rounded-2xl bg-white/80 backdrop-blur-md border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 delay={0.9 + (index * 0.1)}
+                role="button"
+                tabIndex={0}
+                onClick={() => setIsCallbackModalOpen(true)}
+                onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setIsCallbackModalOpen(true);
+                  }
+                }}
               >
                 {/* Фон */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

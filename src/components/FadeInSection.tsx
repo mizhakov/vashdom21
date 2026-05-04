@@ -8,13 +8,15 @@ interface FadeInSectionProps {
   as?: keyof typeof motion;
   className?: string;
   delay?: number;
+  [key: string]: unknown;
 }
 
 const FadeInSection = ({ 
   children, 
   as = 'div', 
   className = '',
-  delay = 0 
+  delay = 0,
+  ...props
 }: FadeInSectionProps) => {
   const MotionComponent = motion[as] as React.ComponentType<HTMLMotionProps<"div">>;
 
@@ -29,6 +31,7 @@ const FadeInSection = ({
         ease: [0.21, 0.47, 0.32, 0.98]
       }}
       className={className}
+      {...props}
     >
       {children}
     </MotionComponent>
