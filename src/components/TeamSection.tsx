@@ -198,6 +198,17 @@ const additionalServices = [
 
 const WorkExamplesSection = () => {
   const [isCallbackModalOpen, setIsCallbackModalOpen] = useState(false);
+  const [callbackSource, setCallbackSource] = useState('');
+
+  const openCallbackModal = (source: string) => {
+    setCallbackSource(source);
+    setIsCallbackModalOpen(true);
+  };
+
+  const closeCallbackModal = () => {
+    setIsCallbackModalOpen(false);
+    setCallbackSource('');
+  };
 
   return (
     <section className="relative py-12 sm:py-16 lg:py-20 bg-gradient-to-tl from-indigo-50 via-white to-blue-50 overflow-hidden">
@@ -241,11 +252,11 @@ const WorkExamplesSection = () => {
               delay={0.3 + (index * 0.1)}
               role="button"
               tabIndex={0}
-              onClick={() => setIsCallbackModalOpen(true)}
+              onClick={() => openCallbackModal(example.title)}
               onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault();
-                  setIsCallbackModalOpen(true);
+                  openCallbackModal(example.title);
                 }
               }}
             >
@@ -320,11 +331,11 @@ const WorkExamplesSection = () => {
                 delay={0.9 + (index * 0.1)}
                 role="button"
                 tabIndex={0}
-                onClick={() => setIsCallbackModalOpen(true)}
+                onClick={() => openCallbackModal(service.title)}
                 onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
                   if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
-                    setIsCallbackModalOpen(true);
+                    openCallbackModal(service.title);
                   }
                 }}
               >
@@ -383,7 +394,7 @@ const WorkExamplesSection = () => {
         {/* Призыв к действию */}
         <FadeInSection as="div" delay={1.2} className="text-center mt-16">
           <button
-            onClick={() => setIsCallbackModalOpen(true)}
+            onClick={() => openCallbackModal('Помощь в подборе земельного участка, юридическое сопровождение')}
             className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-300 backdrop-blur-sm hover:scale-105 transition-transform duration-300 cursor-pointer hover:from-blue-500/30 hover:to-purple-500/30"
           >
             <span className="text-gray-800 font-medium">Помощь в подборе земельного участка, юридическое сопровождение</span>
@@ -395,7 +406,8 @@ const WorkExamplesSection = () => {
       {/* Модальное окно */}
       <CallbackModal 
         isOpen={isCallbackModalOpen} 
-        onClose={() => setIsCallbackModalOpen(false)} 
+        onClose={closeCallbackModal}
+        source={callbackSource}
       />
     </section>
   );

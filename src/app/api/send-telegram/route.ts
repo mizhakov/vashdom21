@@ -9,6 +9,7 @@ const labels: Record<string, string> = {
   type: 'Тип',
   name: 'Имя',
   phone: 'Телефон',
+  source: 'Форма / блок',
   material: 'Материал / заявка',
   area: 'Площадь',
   finish: 'Отделка',

@@ -77,7 +77,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Telegram
+                {/* Telegram */}
               </a>
             </div>
           </div>

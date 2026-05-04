@@ -6,9 +6,10 @@ import { X, CheckCircle, AlertCircle } from 'lucide-react';
 interface CallbackModalProps {
   isOpen: boolean;
   onClose: () => void;
+  source?: string;
 }
 
-const CallbackModal = ({ isOpen, onClose }: CallbackModalProps) => {
+const CallbackModal = ({ isOpen, onClose, source }: CallbackModalProps) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
@@ -40,7 +41,7 @@ const CallbackModal = ({ isOpen, onClose }: CallbackModalProps) => {
       const res = await fetch('/api/send-telegram', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, message, material: 'Звонок' }),
+        body: JSON.stringify({ name, phone, message, material: 'Звонок', source }),
       });
       if (res.ok) {
         setSuccess(true);
@@ -85,7 +86,7 @@ const CallbackModal = ({ isOpen, onClose }: CallbackModalProps) => {
           </button>
 
           {/* Заголовок */}
-          <div className="text-center mb-8">
+          <div className={success ? 'hidden' : 'text-center mb-8'}>
             <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-800 via-blue-600 to-gray-800 bg-clip-text text-transparent mb-2">
               Заказать звонок
             </h2>
@@ -145,18 +146,44 @@ const CallbackModal = ({ isOpen, onClose }: CallbackModalProps) => {
               </button>
             </form>
           ) : (
-            <div className="flex flex-col items-center justify-center py-8 animate-fadeIn">
-              <div className="bg-green-100 border border-green-300 rounded-2xl p-6 mb-6 flex items-center shadow-lg w-full">
-                <CheckCircle className="w-8 h-8 text-green-600 mr-3" />
-                <span className="text-green-700 text-lg font-semibold leading-snug text-left">
-                  Спасибо! Ваш запрос успешно отправлен.
-                </span>
+            <div className="flex flex-col items-center justify-center py-6 text-center animate-fadeIn">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-green-400/30 rounded-full blur-xl"></div>
+                <div className="relative w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/25">
+                  <CheckCircle className="w-11 h-11 text-white" />
+                </div>
               </div>
+
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                  Заявка отправлена
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Спасибо! Мы получили ваш запрос и свяжемся с вами в ближайшее время.
+                </p>
+              </div>
+
+              {/* <div className="w-full bg-gray-50 border border-gray-200 rounded-2xl p-4 mb-6">
+                <div className="flex items-start gap-3 text-left">
+                  <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                    <CheckCircle className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900 mb-1">
+                      Что дальше
+                    </p>
+                    <p className="text-sm text-gray-600 leading-snug">
+                      Менеджер уточнит детали и подберет удобное время для звонка.
+                    </p>
+                  </div>
+                </div>
+              </div> */}
+
               <button
                 onClick={closeModal}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-3 rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300 font-semibold shadow-md hover:scale-105"
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-300 font-semibold shadow-md hover:scale-[1.02]"
               >
-                Закрыть
+                Хорошо
               </button>
             </div>
           )}
